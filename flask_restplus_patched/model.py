@@ -1,6 +1,10 @@
 try:
-    from apispec.ext.marshmallow.openapi import OpenAPIConverter
-    openapi = OpenAPIConverter(openapi_version='2.0')
+    try:
+        from apispec.ext.marshmallow import OpenAPIConverter, resolver
+        openapi = OpenAPIConverter('3.0.2', resolver, None)
+    except ImportError:
+        from apispec.ext.marshmallow.openapi import OpenAPIConverter
+        openapi = OpenAPIConverter('3.0.2')
     fields2jsonschema = openapi.fields2jsonschema
     field2property = openapi.field2property
 except ImportError:
